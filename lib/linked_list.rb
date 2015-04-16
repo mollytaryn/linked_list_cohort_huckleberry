@@ -17,7 +17,18 @@ class LinkedList
   end
 
   def to_s
-    "|#{@first_item} |"
+    ll = ""
+    if @size == 0
+      "| |"
+    elsif @size == 1
+      "| #{@first_item.payload} |"
+    else
+      (@size - 1).times do |i|
+        ll << "#{get(i)}, "
+      end
+        ll << "#{@last_item.payload} "
+      return "| #{ll}|"
+    end
   end
 
   def push(item)
@@ -36,11 +47,9 @@ class LinkedList
     if index == 0
       @first_item.payload
     else
-      count = 0
       current_node = @first_item
-      while count < index
+      index.times do
         current_node = current_node.next_item
-        count = count + 1
       end
       current_node.payload
     end
