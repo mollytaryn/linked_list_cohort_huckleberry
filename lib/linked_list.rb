@@ -5,7 +5,20 @@ class LinkedList
 
   def initialize(*payload)
     @size = 0
+    # index = 0
     payload.each {|payload| push(payload)}
+  end
+
+  def index(word)
+    if word.to_s == @first_item.payload
+      index = 0
+    # else
+    # current_node = @first_item
+    # index.times do
+    #   current_node = current_node.next_item
+    end
+    # index += 1
+    # word.to_s = current_node.payload
   end
 
   def last
@@ -80,6 +93,7 @@ class LinkedList
   end
 
   def delete(index)
+    raise IndexError if @size < index
     current_node = @first_item
     if index > 0
       (index - 1).times do
