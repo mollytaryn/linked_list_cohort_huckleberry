@@ -2,23 +2,22 @@ require_relative 'linked_list_item'
 
 class LinkedList
   attr_reader :size
+  attr_accessor :index
 
   def initialize(*payload)
     @size = 0
-    # index = 0
+    @index = 0
     payload.each {|payload| push(payload)}
   end
 
-  def index(word)
-    if word.to_s == @first_item.payload
-      index = 0
-    # else
-    # current_node = @first_item
-    # index.times do
-    #   current_node = current_node.next_item
+  def index(value)
+    i = 0
+    current_node = @first_item
+    until current_node.payload == value do
+      current_node = current_node.next_item
+      i += 1
     end
-    # index += 1
-    # word.to_s = current_node.payload
+    i
   end
 
   def last
@@ -26,21 +25,6 @@ class LinkedList
       @last_item.payload
     end
   end
-
-  # def to_s
-  #   ll = ""
-  #   if @size == 0
-  #     "| |"
-  #   elsif @size == 1
-  #     "| #{@first_item.payload} |"
-  #   else
-  #     (@size - 1).times do |i|
-  #       ll << "#{get(i)}, "
-  #     end
-  #       ll << "#{@last_item.payload} "
-  #     return "| #{ll}|"
-  #   end
-  # end
 
   def to_s
     str = "| "
@@ -55,12 +39,12 @@ class LinkedList
     str
   end
 
-  def push(item)
+  def push(payload)
     if @first_item.nil?
-      @first_item = LinkedListItem.new(item)
+      @first_item = LinkedListItem.new(payload)
       @last_item = @first_item
     else
-      @last_item.next_item = LinkedListItem.new(item)
+      @last_item.next_item = LinkedListItem.new(payload)
       @last_item = @last_item.next_item
     end
     @size += 1
