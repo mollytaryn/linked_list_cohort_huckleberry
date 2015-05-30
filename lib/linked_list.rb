@@ -7,15 +7,21 @@ class LinkedList
   def initialize(*payload)
     @size = 0
     @index = 0
+    # unless payload.empty?
     payload.each {|payload| push(payload)}
+    # end
   end
 
-  def index(value)
+  def index(payload)
     i = 0
-    current_node = @first_item
-    until current_node.payload == value do
-      current_node = current_node.next_item
+    current_item = @first_item
+    return nil if current_item.nil?
+    while current_item.nil? == false && current_item.payload != payload
+      current_item = current_item.next_item
       i += 1
+    end
+    if current_item.nil?
+      return nil
     end
     i
   end
@@ -40,14 +46,14 @@ class LinkedList
   end
 
   def push(payload)
+    new_item = LinkedListItem.new(payload)
     if @first_item.nil?
-      @first_item = LinkedListItem.new(payload)
-      @last_item = @first_item
+      @first_item = new_item
     else
-      @last_item.next_item = LinkedListItem.new(payload)
-      @last_item = @last_item.next_item
+      @last_item.next_item = new_item
     end
     @size += 1
+    @last_item = new_item
   end
 
   def [](index)
